@@ -1,4 +1,4 @@
-     N.A                 Year           X.              BB          BB.1              N.A.1          
+  serial_num            season         num            bassin     sub_bassin            name          
  Length:2787        Min.   :2010   Length:2787         EP:270   Length:2787        Length:2787       
  Class :character   1st Qu.:2010   Class :character    NA:661   Class :character   Class :character  
  Mode  :character   Median :2010   Mode  :character    NI:226   Mode  :character   Mode  :character  
@@ -6,11 +6,12 @@
                     3rd Qu.:2010                       SI:576                                        
                     Max.   :2010                       SP:401                                        
                                                        WP:633                                        
- YYYY.MM.DD.HH.MM.SS    N.A.2             deg_north          deg_east             kt               mb      
- Length:2787         Length:2787        Min.   :-61.300   Min.   :-179.80   Min.   : 15.00   Min.   : 885  
- Class :character    Class :character   1st Qu.:-13.092   1st Qu.: -83.10   1st Qu.: 28.00   1st Qu.: 985  
- Mode  :character    Mode  :character   Median : 15.400   Median :  51.35   Median : 40.00   Median : 998  
-                                        Mean   :  8.098   Mean   :  14.20   Mean   : 45.61   Mean   : 991  
-                                        3rd Qu.: 22.425   3rd Qu.: 117.72   3rd Qu.: 60.00   3rd Qu.:1004  
-                                        Max.   : 58.500   Max.   : 180.00   Max.   :140.00   Max.   :1016  
-                                        NA's   :363       NA's   :363       NA's   :563      NA's   :393   
+   iso_time            nature             latitude         longitude            wind            press     
+ Length:2787        Length:2787        Min.   :-61.300   Min.   :-179.80   Min.   : 15.00   Min.   : 885  
+ Class :character   Class :character   1st Qu.:-13.092   1st Qu.: -83.10   1st Qu.: 28.00   1st Qu.: 985  
+ Mode  :character   Mode  :character   Median : 15.400   Median :  51.35   Median : 40.00   Median : 998  
+                                       Mean   :  8.098   Mean   :  14.20   Mean   : 45.61   Mean   : 991  
+                                       3rd Qu.: 22.425   3rd Qu.: 117.72   3rd Qu.: 60.00   3rd Qu.:1004  
+                                       Max.   : 58.500   Max.   : 180.00   Max.   :140.00   Max.   :1016  
+                                       NA's   :363       NA's   :363       NA's   :563      NA's   :393   
+
