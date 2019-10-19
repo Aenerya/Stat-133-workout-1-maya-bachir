@@ -1,0 +1,130 @@
+---
+title: "workout1-maya-bachir"
+output: github_document
+---
+
+#Report
+
+```{r initialisation}
+library(dplyr)    # data wrangling
+library(ggplot2)  # graphics
+library(tidyverse) #contains readr
+library(maps) #maps
+library(lubridate) #handling the date
+
+dat <- read.csv('C:/Users/Maya/Documents/Berkeley/Computing data/Workout1/data/ibtracs-2010-2015.csv', header = FALSE, sep = ";", skip = 2, colClasses = c('character','integer','character','factor','character','character','character','character','real','real','real', 'real'), na.string = c("-999.","-1.0", "0.0"), col.names = c('serial_num', 'season', 'num', 'bassin', 'sub_bassin', 'name', 'iso_time', 'nature', 'latitude', 'longitude', 'wind', 'press'))
+
+dat$month = month(dat$iso_time, label=TRUE)
+dat$month_num = month(dat$iso_time)
+dat$year = year(dat$iso_time)
+```
+
+Let us first take a look at the location of the storms on a map of the Earth:
+```{r fig.align='center'}
+knitr::include_graphics('C:/Users/Maya/Documents/Berkeley/Computing data/Workout1/images/map-all-storms.png')
+```
+
+
+We will commence our exploration by taking a look at the number of time each storm occured per year.
+Total number of unique storms:
+```{r}
+count(distinct(dat, Name, .keep_all = FALSE))
+```
+```{r}
+count(dat, dat$serial_num, dat$year)
+```
+We can draw those occurences, facetted by year, with the month colored:
+```{r}
+ggplot(dat, aes(dat$iso_time, color = dat$month)) + geom_bar() + facet_grid(dat$year)
+```
+
+Let's take a look per hemisphere this time.
+In the north hemisphere:
+```{r}
+filter_north <- filter(dat, dat$latitude >= 0)
+count(filter_north, filter_north$serial_num, filter_north$year)
+```
+```{r}
+ggplot(filter_north, aes(filter_north$iso_time, color = filter_north$month)) + geom_bar() + facet_grid(filter_north$year)
+```
+Total number of storms:
+```{r}
+count(filter_north)
+```
+
+
+In the south hemisphere :
+```{r}
+filter_south <- filter(dat, dat$latitude <= 0)
+count(filter_south, filter_south$serial_num, filter_south$year)
+```
+```{r}
+ggplot(filter_south, aes(filter_south$iso_time, color = filter_south$month)) + geom_bar() + facet_grid(filter_south$year)
+```
+Total number of storms:
+```{r}
+count(filter_south)
+```
+
+It seems that there are more storms in the north hemisphere!
+
+Let's see if there is a time of the year more likely to have storms:
+```{r}
+filter_january <- filter(dat, dat$month_num == 1)
+filter_february <- filter(dat, dat$month_num == 2)
+filter_march <- filter(dat, dat$month_num == 3)
+filter_april <- filter(dat, dat$month_num == 4)
+filter_may <- filter(dat, dat$month_num == 5)
+filter_june <- filter(dat, dat$month_num == 6)
+filter_july <- filter(dat, dat$month_num == 7)
+filter_august <- filter(dat, dat$month_num == 8)
+filter_september <- filter(dat, dat$month_num == 9)
+filter_october <- filter(dat, dat$month_num == 10)
+filter_november <- filter(dat, dat$month_num == 11)
+filter_december <- filter(dat, dat$month_num == 12)
+
+all_month <- c(count(filter_january), count(filter_february), count(filter_march), count(filter_april), count(filter_may), count(filter_june), count(filter_july), count(filter_august), count(filter_september), count(filter_october), count(filter_november), count(filter_december))
+which.max(unlist(all_month))
+```
+It seems that the ninth month, September, is the one where there are the most storms.
+Let's observe those results on a graph:
+```{r}
+ggplot(dat, aes(dat$month, color = dat$month)) + geom_bar()
+```
+
+Now, let's examine the different bassin.
+In the EP Bassin:
+```{r}
+dat_EP_bassin <- filter(dat, dat$bassin == ' EP')
+count(dat_EP_bassin, dat_EP_bassin$serial_num, dat_EP_bassin$year)
+```
+Total number of storms:
+```{r}
+count(dat_EP_bassin)
+```
+Let's look at them in a graph now, per year and per month:
+```{r fig.align='center'}
+knitr::include_graphics('C:/Users/Maya/Documents/Berkeley/Computing data/Workout1/images/map-ep-storms-by-year.png')
+```
+
+```{r fig.align='center'}
+knitr::include_graphics('C:/Users/Maya/Documents/Berkeley/Computing data/Workout1/images/map-ep-storms-by-month.png')
+```
+
+In the NA Bassin:
+```{r}
+dat_NA_bassin <- filter(dat, dat$bassin == ' NA')
+count(dat_NA_bassin, dat_NA_bassin$serial_num, dat_NA_bassin$year)
+```
+Total number of storms:
+```{r}
+count(dat_NA_bassin)
+```
+Let's look at them in a graph now, per year and per month:
+```{r fig.align='center'}
+knitr::include_graphics('C:/Users/Maya/Documents/Berkeley/Computing data/Workout1/images/map-na-storms-by-year.png')
+```
+
+```{r fig.align='center'}
+knitr::include_graphics('C:/Users/Maya/Documents/Berkeley/Computing data/Workout1/images/map-na-storms-by-month.png')
+```

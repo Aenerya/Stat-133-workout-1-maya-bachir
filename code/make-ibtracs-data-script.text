@@ -1,0 +1,2 @@
+cd data
+curl -O ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r10/all/csv/year/Year.2010.ibtracs_all.v03r10.csv
